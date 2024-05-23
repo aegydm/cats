@@ -7,6 +7,8 @@ public class PlayerMove : MonoBehaviour
 {
     public float maxSpeed; //최대속력
     public float jumpPower;
+    public float stopSpeed; //멈춤속도 - 브레이크 (마찰값으로 대체)
+    public bool isJump; // 공중인지 여부
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
 
@@ -24,15 +26,15 @@ public class PlayerMove : MonoBehaviour
             rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
         }
         
-        if (Input.GetButtonUp("Horizental"))
-        {
-            //멈춤, 브레이크 속도
-            rigid.velocity = new Vector2(rigid.velocity.normalized.x * 0.5f, rigid.velocity.y);
-        }
+        //if (input.getbuttonup("horizontal"))
+        //{
+        //    //멈춤, 브레이크 속도
+        //    rigid.velocity = new vector2(rigid.velocity.normalized.x * stopspeed, rigid.velocity.y);
+        //}
 
-        if (Input.GetButtonDown("Horizental"))
+        if (Input.GetButtonDown("Horizontal"))
         {
-            spriteRenderer.flipX = Input.GetAxisRaw("Horizental") == -1;
+            spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
         }
 
 

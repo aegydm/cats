@@ -7,6 +7,7 @@ public class Npctest : MonoBehaviour
 
     public GameObject interactionButton;
     public GameObject sms;
+    bool inPlayer = false; 
     // Start is called before the first frame update
     void Start()
     {
@@ -16,29 +17,7 @@ public class Npctest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            interactionButton.SetActive(true);
-
-        }
-        
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            interactionButton.SetActive(false);
-
-        }
-    }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
+        if (inPlayer == true)
         {
             interactionButton.SetActive(true);
 
@@ -46,12 +25,44 @@ public class Npctest : MonoBehaviour
             {
                 sms.SetActive(true);
             }
-
         }
         else
         {
             interactionButton.SetActive(false);
         }
+    }
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Player")
+    //    {
+    //        interactionButton.SetActive(true);
+
+    //    }
+        
+    //}
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Player")
+    //    {
+    //        interactionButton.SetActive(false);
+
+    //    }
+    //}
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            inPlayer = true;
+        }
+        else
+        {
+            inPlayer = false;
+        }
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        inPlayer = false;
     }
 
 }

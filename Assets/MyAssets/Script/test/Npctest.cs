@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Npctest : MonoBehaviour
 {
 
     public GameObject interactionButton;
-    public GameObject sms;
+    public GameObject canvas;
+    public Text text;
     bool inPlayer = false; 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +25,7 @@ public class Npctest : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.W))
             {
-                sms.SetActive(true);
+                canvas.SetActive(true);
             }
         }
         else

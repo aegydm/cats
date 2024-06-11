@@ -25,7 +25,11 @@ public class PlayerMove : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump"))
         {
-            rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+            if (rigid.velocity.normalized.y == 0)
+            {
+                rigid.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
+                ani.SetBool("isJump", true);
+            }
         }
         
         //if (input.getbuttonup("horizontal"))
@@ -39,7 +43,7 @@ public class PlayerMove : MonoBehaviour
             spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1; //플립
         }
 
-        if (rigid.velocity.normalized.x == 0)  //x축 이동이 0일때
+        if (Mathf.Abs(rigid.velocity.x) < 0.095)  //x축 이동이 0일때
         {
             ani.SetBool("isMove", false);
         }
@@ -48,7 +52,7 @@ public class PlayerMove : MonoBehaviour
             ani.SetBool("isMove", true);
         }
 
-        if (rigid.velocity.normalized.y == 0)  //x축 이동이 0일때
+        if (rigid.velocity.normalized.y == 0)  //y축 이동이 0일때
         {
             ani.SetBool("isJump", false);
         }

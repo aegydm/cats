@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
     }
     void Start()
     {
-        Menu();
+        //Menu();
         //One("testScenes");
         //playerInfo = GameObject.Find("Player").GetComponent<PlayerInfo>();
     }
@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
     public void Menu()                          //게임 실행시 첫 화면, 시작 버튼이 존재
     {
         
-        Time.timeScale = 1;
+        Time.timeScale = 0;
         SetGameState(GameState.menu);
     }
 
@@ -121,6 +121,7 @@ public class GameManager : MonoBehaviour
 
     public void StopGame()         // 일시정지 (ESC)
     {
+        Debug.Log ("일시정지됨");
         if (currentGameState == GameState.inGame)
         {
             if (Time.timeScale == 0)

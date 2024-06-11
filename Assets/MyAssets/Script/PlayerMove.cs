@@ -11,12 +11,14 @@ public class PlayerMove : MonoBehaviour
     public bool isJump; // 공중인지 여부
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
+    Animator ani;
 
     // Start is called before the first frame update
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        ani = GetComponent<Animator>();
     }
 
     void Update()
@@ -34,10 +36,26 @@ public class PlayerMove : MonoBehaviour
 
         if (Input.GetButtonDown("Horizontal"))
         {
-            spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1;
+            spriteRenderer.flipX = Input.GetAxisRaw("Horizontal") == -1; //플립
         }
 
+        if (rigid.velocity.normalized.x == 0)  //x축 이동이 0일때
+        {
+            ani.SetBool("isMove", false);
+        }
+        else
+        {
+            ani.SetBool("isMove", true);
+        }
 
+        if (rigid.velocity.normalized.y == 0)  //x축 이동이 0일때
+        {
+            ani.SetBool("isJump", false);
+        }
+        else
+        {
+            ani.SetBool("isJump", true);
+        }
     }
 
     // Update is called once per frame

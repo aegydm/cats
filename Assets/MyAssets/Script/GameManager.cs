@@ -38,12 +38,10 @@ public class GameManager : MonoBehaviour
         {
             return;
         }
-        One("testScenes");
     }
     void Start()
     {
         //Menu();
-        //One("testScenes");
         //playerInfo = GameObject.Find("Player").GetComponent<PlayerInfo>();
     }
 
@@ -87,7 +85,7 @@ public class GameManager : MonoBehaviour
     public void Menu()                          //게임 실행시 첫 화면, 시작 버튼이 존재
     {
         
-        Time.timeScale = 0;
+        Time.timeScale = 1;
         SetGameState(GameState.menu);
     }
 
@@ -109,10 +107,12 @@ public class GameManager : MonoBehaviour
     }
     //----------------------버튼 입력에 따른 값들---------------------------
 
+
     public void StartGame()        //게임시작 버튼 눌리면 실행
     {
         Time.timeScale = 1;
         SetGameState(GameState.inGame);
+        One("testScenes");
     }
     public void QuitGame()         //게임 나가기버튼
     {

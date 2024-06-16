@@ -41,17 +41,18 @@ public class PlayerMove : MonoBehaviour
         { rigid.velocity = new Vector2(maxSpeed * -(1), rigid.velocity.y); }
 
         //플렛폼감지
-        if (rigid.velocity.normalized.y < 0)
+        if (rigid.velocity.normalized.y <= 0)
         {
             Debug.DrawRay(rigid.position, Vector2.down, new Color(0, 1, 0));
 
             RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("OneWayPlatform", "Structure", "Npc"));
 
-            if (rayHit.collider != null)
+            if (rayHit.collider != null) //레이케스트에 감지되는게 비어있지 않을 때 아래 지문 실행
             {
-                if (rayHit.distance < 0.5f)
+                if (rayHit.distance < 0.5f) // 레이히트 거리가 0.5f 이하의 거리일때 아래 지문 실행
                 {
-                    Debug.Log(rayHit.collider.name);
+                    //Debug.Log(rayHit.collider.name);
+                    Debug.Log("착지함");
                     ani.SetBool("isJump", false);
                 }
 
@@ -70,8 +71,8 @@ public class PlayerMove : MonoBehaviour
             ani.SetBool("isJump", true);
         }
 
-            //아래로이동으로 플렛폼 통과하기
-            if (Input.GetAxis("Vertical") < 0)  
+        //아래로이동으로 플렛폼 통과하기
+        if (Input.GetAxis("Vertical") < 0)  
         {Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(playerLayerName), LayerMask.NameToLayer(onWayPlatformLayerName), true);}
         else
         {Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer(playerLayerName), LayerMask.NameToLayer(onWayPlatformLayerName), false);}

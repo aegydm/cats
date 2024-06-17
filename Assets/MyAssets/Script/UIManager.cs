@@ -20,6 +20,13 @@ public class UIManager : MonoBehaviour
     public void Starter()
     {
         GameManager.Instance.One("testScenes");
+        Debug.Log("테스트 씬 실행");
+    }
+    public void Exiter()
+    {
+        Debug.Log("게임종료");
+        //GameManager.Instance.StopGame();
+        
     }
 
 }

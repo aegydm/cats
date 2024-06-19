@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Globalization;
 
 public class TalkSystem : MonoBehaviour
 {
@@ -22,11 +23,14 @@ public class TalkSystem : MonoBehaviour
     private void Awake()
     {
         int index = 0;
-        for (int i = 0; i < dialogDB.Entites; ++i)
+        for (int i = 0; i < dialogDB.Entities.Count; ++i)
         {
-            if (dialogDB.Entity[i].branch == branch)
+            if (dialogDB.Entities[i].branch == branch)
             {
-
+                dialogs[index].speakerIndex = dialogDB.Entities[i].id;
+                dialogs[index].name = dialogDB.Entities[i].name;
+                dialogs[index].dialogue = dialogDB.Entities[i].dialog;
+                index++;
             }
         }
         Setup();

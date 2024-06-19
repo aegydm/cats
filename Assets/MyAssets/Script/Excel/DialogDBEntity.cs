@@ -6,6 +6,7 @@ using UnityEngine;
 public class DialogDBEntity
 {
     public int branch;
+    public int id;
     public string name;
     public string dialog;
 

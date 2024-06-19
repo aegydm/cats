@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class Npctest : MonoBehaviour
 {
 
+    [SerializeField] private TalkSystem talkSystem01;
+
     public GameObject interactionButton;
     public GameObject canvas;
     public Text text;
@@ -25,7 +27,9 @@ public class Npctest : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.W))
             {
+                Debug.Log("test!");
                 canvas.SetActive(true);
+                StartCoroutine ("DialogStart");
             }
         }
         else
@@ -67,4 +71,11 @@ public class Npctest : MonoBehaviour
         inPlayer = false;
     }
 
+
+    private IEnumerator DialogStart()
+    {
+        Debug.Log("test!");
+        
+        yield return new WaitUntil(() => talkSystem01.UpdateDialog());
+    }
 }

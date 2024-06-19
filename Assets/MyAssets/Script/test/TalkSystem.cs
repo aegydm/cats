@@ -55,7 +55,7 @@ public class TalkSystem : MonoBehaviour
         if (isFirst == true)
         {
             Setup();
-            if ( isAutoStart)
+            if (isAutoStart)
             {
                 SetNextDialog();
             }

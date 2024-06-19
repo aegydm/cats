@@ -28,6 +28,7 @@ public class Npctest : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.W))
             {
+                //talkSystem01.ResetDialog();
                 canvas.SetActive(true);
                 StartCoroutine ("DialogStart");
             }

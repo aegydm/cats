@@ -118,7 +118,7 @@ public class TalkSystem : MonoBehaviour
     {
         int index = 0;
         isTypingEffect = true;
-        while ( index < dialogs[currentDialogIndex].dialogue.Length )
+        while ( index <= dialogs[currentDialogIndex].dialogue.Length )
         {
             speakers[currentSpeakerIndex].textDialogue.text = dialogs[currentDialogIndex].dialogue.Substring(0, index);
             index++;

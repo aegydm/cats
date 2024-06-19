@@ -2766,7 +2766,7 @@ MonoBehaviour:
   onUi: {fileID: 2029477191}
   n: test
   click: 0
-  drag: 0
+  drag: 1
   on: 0
   exit: 0
 --- !u!61 &1561069446

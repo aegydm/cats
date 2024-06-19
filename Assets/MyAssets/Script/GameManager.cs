@@ -10,7 +10,8 @@ public enum GameState
 {
     menu,
     inGame,
-    gameOver
+    gameOver,
+    isDialog
 }
 
 
@@ -20,10 +21,6 @@ public class GameManager : MonoBehaviour
     //public PlayerInfo playerInfo;
     public GameState currentGameState = GameState.menu;
     public float time;
-
-    public GameObject menuUi;
-    public GameObject overUi;
-    public GameObject stopUi;
 
     public string scenename;
 
@@ -60,24 +57,16 @@ public class GameManager : MonoBehaviour
     {
         if (newGameState == GameState.menu)
         {
-            //Menu();                     제귀함수오류발생 방지
-            overUi.SetActive(false);
-            //menuUi.SetActive(true);
-            stopUi.SetActive(false);
+
         }
         else if (newGameState == GameState.inGame)
         {
             Ingame();
-            overUi.SetActive(false);
-            menuUi.SetActive(false);
-            stopUi.SetActive(false);
+
         }
         else if (newGameState == GameState.gameOver)
         {
             //GameOver();;                제귀함수오류발생 방지
-            overUi.SetActive(true);
-            menuUi.SetActive(false);
-            stopUi.SetActive(false);
         }
         currentGameState = newGameState;  //게임상태 검색에 사용하면 되는 변수
     }
@@ -105,6 +94,10 @@ public class GameManager : MonoBehaviour
         //}
         Time.timeScale = 0;
     }
+    public void IsDialog()
+    {
+        Debug.Log("dialog start");
+    }
     //----------------------버튼 입력에 따른 값들---------------------------
 
 
@@ -126,12 +119,10 @@ public class GameManager : MonoBehaviour
         {
             if (Time.timeScale == 0)
             {
-                stopUi.SetActive(false);
                 Time.timeScale = 1;
             }
             else if (Time.timeScale == 1)
             {
-                stopUi.SetActive(true);
                 Time.timeScale = 0;
             }
         }

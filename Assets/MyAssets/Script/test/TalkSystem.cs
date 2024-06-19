@@ -4,9 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Globalization;
+using UnityEditor;
 
 public class TalkSystem : MonoBehaviour
 {
+    public PlayerMove playerState;
+    public GameObject mainCam;
     [SerializeField] private int branch;
     [SerializeField] private DialogDB dialogDB;
 
@@ -19,6 +22,7 @@ public class TalkSystem : MonoBehaviour
     private int currentSpeakerIndex = 0;
     private float typingSpeed = 0.1f;
     private bool isTypingEffect = false;
+    public bool isOptions = false;
 
     private void Awake()
     {
@@ -42,6 +46,7 @@ public class TalkSystem : MonoBehaviour
         {
             SetActiveObjects(speakers[i], false);
             speakers[i].spriteRenderer.gameObject.SetActive(true);
+            //speakers[i].camera.gameObject.SetActive(true);
         }
     }
 
@@ -54,24 +59,27 @@ public class TalkSystem : MonoBehaviour
             {
                 SetNextDialog();
             }
+            
+            playerState.maxSpeed = 0f;
+            mainCam.SetActive(false);
             isFirst = false;
         }
-
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)&& !isOptions)
         {
-            if ( isTypingEffect == true)
+            if (isTypingEffect == true)
             {
                 isTypingEffect = false;
 
                 StopCoroutine("OnTypingText");
                 speakers[currentSpeakerIndex].textDialogue.text = dialogs[currentDialogIndex].dialogue;
                 speakers[currentSpeakerIndex].objectArrow.SetActive(true);
-
+                //Debug.Log(speakers.Length);
                 return false;
             }
             if (dialogs.Length > currentDialogIndex +1)
             {
                 SetNextDialog();
+                //Debug.Log(speakers.Length);
             }
             else
             {
@@ -79,11 +87,16 @@ public class TalkSystem : MonoBehaviour
                 {
                     SetActiveObjects(speakers[i], false);
                     speakers[i].spriteRenderer.gameObject.SetActive(false);
+                    //speakers[i].camera.gameObject.SetActive(false); //new
                 }
+                playerState.maxSpeed = 12f; //하드코딩 에반데.. 시간이
+                mainCam.SetActive(true);
                 return true;
             }
+            
         }
         return false;
+        
     }
 
     private void SetNextDialog()
@@ -106,6 +119,7 @@ public class TalkSystem : MonoBehaviour
         speaker.imageDialog.gameObject.SetActive(visible);
         speaker.textDialogue.gameObject.SetActive(visible);
         speaker.textName.gameObject.SetActive(visible);
+        //speaker.camera.gameObject.SetActive(visible);
 
         speaker.objectArrow.SetActive(false);
 
@@ -137,6 +151,7 @@ public struct Speaker
     public TextMeshProUGUI textName;       //화자의 이름GUI
     public TextMeshProUGUI textDialogue;   //대사 출력GUI
     public GameObject objectArrow;         //출력 완료 후 보이는 오브젝트
+    //public GameObject camera;
 }
 [System.Serializable]
 public struct DialogData

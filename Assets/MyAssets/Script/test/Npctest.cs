@@ -11,7 +11,8 @@ public class Npctest : MonoBehaviour
     public GameObject interactionButton;
     public GameObject canvas;
     public Text text;
-    bool inPlayer = false; 
+    public bool inPlayer = false;
+    public PlayerMove playerState;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +28,6 @@ public class Npctest : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.W))
             {
-                Debug.Log("test!");
                 canvas.SetActive(true);
                 StartCoroutine ("DialogStart");
             }
@@ -38,23 +38,11 @@ public class Npctest : MonoBehaviour
         }
     }
 
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.tag == "Player")
-    //    {
-    //        interactionButton.SetActive(true);
+    private IEnumerator DialogStart()
+    {
+        yield return new WaitUntil(() => talkSystem01.UpdateDialog());
+    }
 
-    //    }
-        
-    //}
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.tag == "Player")
-    //    {
-    //        interactionButton.SetActive(false);
-
-    //    }
-    //}
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -70,12 +58,21 @@ public class Npctest : MonoBehaviour
     {
         inPlayer = false;
     }
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Player")
+    //    {
+    //        interactionButton.SetActive(true);
 
+    //    }
 
-    private IEnumerator DialogStart()
-    {
-        Debug.Log("test!");
-        
-        yield return new WaitUntil(() => talkSystem01.UpdateDialog());
-    }
+    //}
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Player")
+    //    {
+    //        interactionButton.SetActive(false);
+
+    //    }
+    //}
 }

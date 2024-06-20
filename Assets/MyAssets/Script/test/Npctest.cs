@@ -8,6 +8,9 @@ public class Npctest : MonoBehaviour
 
     [SerializeField] private TalkSystem talkSystem01;
 
+    public string type;
+    public GameObject cam;
+
     public GameObject interactionButton;
     public GameObject canvas;
     public Text text;
@@ -22,20 +25,29 @@ public class Npctest : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inPlayer == true)
+        if (inPlayer)
         {
             interactionButton.SetActive(true);
 
             if (Input.GetKeyDown(KeyCode.W))
             {
-                //talkSystem01.ResetDialog();
-                canvas.SetActive(true);
-                StartCoroutine ("DialogStart");
+                switch (type)
+                {
+                    case "test":
+                        cam.SetActive(false);
+                        break;
+                    case "Npc1":
+                        //talkSystem01.ResetDialog();
+                        canvas.SetActive(true);
+                        StartCoroutine("DialogStart");
+                        break;
+                }
             }
         }
-        else
+        if (!inPlayer)
         {
             interactionButton.SetActive(false);
+            
         }
     }
 
@@ -47,17 +59,14 @@ public class Npctest : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
-        {
-            inPlayer = true;
-        }
+        {inPlayer = true;}
         else
-        {
-            inPlayer = false;
-        }
+        {inPlayer = false;}
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         inPlayer = false;
+        cam.SetActive(true);
     }
     //private void OnTriggerEnter2D(Collider2D collision)
     //{

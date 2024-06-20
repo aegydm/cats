@@ -5,6 +5,9 @@ using UnityEngine;
 public class UI_Mouse : MonoBehaviour
 {
     public GameObject onUi;
+    public GameObject dragim;
+    public GameObject self;
+    public UIManager uI;
     public string n;
     public bool click;
     public bool drag;
@@ -15,6 +18,7 @@ public class UI_Mouse : MonoBehaviour
     private void Awake()
     {
         ani = GetComponent<Animator>();
+        
     }
 
     // Update is called once per frame
@@ -31,6 +35,9 @@ public class UI_Mouse : MonoBehaviour
             {
                 case "test":
                     Debug.Log("클릭 테스트 상호작용");
+                    break;
+                case "Starter":
+                    uI.Starter();
                     break;
             }
             Debug.Log("클릭!");
@@ -65,6 +72,8 @@ public class UI_Mouse : MonoBehaviour
             Debug.Log("마우스 나감");
             onUi.SetActive(false);
             //ani.SetBool("On", false);
+            dragim.SetActive(false);
+            self.SetActive(true);
         }
 
     }
@@ -74,7 +83,12 @@ public class UI_Mouse : MonoBehaviour
     { 
         if (drag)
         {
+
             print("Drag!!");
+
+            dragim.SetActive(true);
+            self.SetActive(false);
+            
             Vector3 mousePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, distance);
             Vector3 objPosition = Camera.main.ScreenToWorldPoint(mousePosition); transform.position = objPosition;
         }
